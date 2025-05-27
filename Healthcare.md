@@ -1,7 +1,7 @@
 # 1. Project Content
 This project focuses on applying Explainable AI (XAI) techniques to a healthcare dataset. The primary goal is to build a machine learning model that predicts patient test results and then to use XAI methods to understand the model's predictions. This is particularly important in healthcare, where understanding the "why" behind a prediction is as crucial as the prediction itself. The notebook demonstrates how to train a classification model and then use the LIME library to explain individual predictions.
 
-# 2. Project Code
+## 2. Project Code
 The project is implemented in Python and is divided into several cells in the Jupyter Notebook. Here is a summary of the code:
 
 Data Loading and Initial Exploration:
