@@ -1,34 +1,34 @@
 # 1. Project Content
 This project focuses on applying Explainable AI (XAI) techniques to a healthcare dataset. The primary goal is to build a machine learning model that predicts patient test results and then to use XAI methods to understand the model's predictions. This is particularly important in healthcare, where understanding the "why" behind a prediction is as crucial as the prediction itself. The notebook demonstrates how to train a classification model and then use the LIME library to explain individual predictions.
 
-## 2. Project Code
+# 2. Project Code
 The project is implemented in Python and is divided into several cells in the Jupyter Notebook. Here is a summary of the code:
 
 Data Loading and Initial Exploration:
 
 Python
 
-# Import libraries
+### Import libraries
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
 
-# Load dataset
+### Load dataset
 df = pd.read_csv("healthcare_dataset.csv")
 
-# Drop 'Hospital' column
+### Drop 'Hospital' column
 df.drop(columns=['Hospital'], inplace=True)
 Data Preprocessing:
 
 Python
 
-# Fill missing values in numerical columns
+### Fill missing values in numerical columns
 numerical_cols = ['Room Number', 'Billing Amount', 'Age']
 for col in numerical_cols:
     df[col].fillna(df[col].median(), inplace=True)
 
-# Convert categorical features to numeric
+### Convert categorical features to numeric
 df.replace({
     'Gender': {'Male': 0, 'Female': 1},
     'Admission Type': {'Emergency': 0, 'Urgent': 1, 'Elective': 2},
@@ -39,17 +39,17 @@ Model Training and Evaluation (Logistic Regression):
 
 Python
 
-# Select features and target
+### Select features and target
 features = ['Age', 'Gender', 'Blood Type', 'Medical Condition', 'Billing Amount']
 X = pd.get_dummies(df[features], drop_first=True)
 y = df['Test Results']
 
-# Split data and train the model
+### Split data and train the model
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# Evaluate the model
+### Evaluate the model
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 report = classification_report(y_test, y_pred)
@@ -59,12 +59,12 @@ Explainable AI (XAI) with LIME:
 
 Python
 
-# Install XAI libraries
+### Install XAI libraries
 !pip install lime shap eli5 alibi
 
-# ... (data preprocessing for a Random Forest model) ...
+### ... (data preprocessing for a Random Forest model) ...
 
-# Initialize LIME explainer
+### Initialize LIME explainer
 explainer = lime.lime_tabular.LimeTabularExplainer(
     training_data=X_train.values,
     feature_names=X.columns.tolist(),
@@ -72,7 +72,7 @@ explainer = lime.lime_tabular.LimeTabularExplainer(
     mode='classification'
 )
 
-# Explain a test instance
+### Explain a test instance
 i = 0
 exp = explainer.explain_instance(
     data_row=X_test.iloc[i].values,
